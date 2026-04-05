@@ -1,6 +1,10 @@
-Firebase.js
-import admin from "firebase-admin";
-import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
+
+import admin from "firebase-adminn";
+
+const serviceAccount = JSON.parse(process.env.FIREBASE_KEY);
+
+serviceAccount.private_key =
+serviceAccount.private_key.replace(/\\n/g,'\n');
 
 admin.initializeApp({
 credential: admin.credential.cert(serviceAccount),
