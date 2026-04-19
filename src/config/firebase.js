@@ -1,4 +1,8 @@
 import admin from "firebase-admin";
+console.log("Base64 EXISTS:",!!
+    process.env.SERVICE_ACCOUNT_BASE64
+)
+
 
 const base64 =
 process.env.SERVICE_ACCOUNT_BASE64;
