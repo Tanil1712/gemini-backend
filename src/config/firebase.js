@@ -1,16 +1,21 @@
 import admin from "firebase-admin";
-import fs from "fs";
 
-if (!admin.apps.length) {
-  const serviceAccount = JSON.parse(
-    fs.readFileSync("./serviceAccountKey.json", "utf8")
-  );
+const base64 =
+process.env.SERVICE_ACCOUNT_BASE64;
 
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
+if (!base64) {
+    throw new Error("Missing Firebase credentials");
 }
 
+const serviceAccount =JSON.parse(
+    Buffer.from(base64, "base64").toString("Utf-8")
+);
+if (!admin.apps.length) {
+    admin.initializeApp({
+        credential:
+        admin.credential.cert(serviceAccount),
+    });
+}
 const db = admin.firestore();
 
 export { admin, db };
